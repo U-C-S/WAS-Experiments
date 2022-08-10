@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "WAS-CS (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "WAS-CS (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
