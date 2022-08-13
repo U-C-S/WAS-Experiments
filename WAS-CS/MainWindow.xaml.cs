@@ -1,7 +1,6 @@
 ﻿using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -18,7 +17,12 @@ namespace WAS_CS
             this.InitializeComponent();
 
             m_AppWindow = GetAppWindowForCurrentWindow();
+            m_AppWindow.Resize(new Windows.Graphics.SizeInt32(500, 250));
             m_AppWindow.Changed += AppWindow_Changed;
+            (m_AppWindow.Presenter as OverlappedPresenter).IsResizable = false;
+            (m_AppWindow.Presenter as OverlappedPresenter).IsAlwaysOnTop = true;
+            (m_AppWindow.Presenter as OverlappedPresenter).IsMinimizable = false;
+            (m_AppWindow.Presenter as OverlappedPresenter).IsMaximizable = false;
 
             // Check to see if customization is supported.
             // Currently only supported on Windows 11.
@@ -27,7 +31,6 @@ namespace WAS_CS
                 var titleBar = m_AppWindow.TitleBar;
                 titleBar.ExtendsContentIntoTitleBar = true;
                 AppTitleBar.Loaded += AppTitleBar_Loaded;
-                AppTitleBar.SizeChanged += AppTitleBar_SizeChanged;
             }
             else
             {
@@ -46,16 +49,6 @@ namespace WAS_CS
         {
             if (AppWindowTitleBar.IsCustomizationSupported())
             {
-                SetDragRegionForCustomTitleBar(m_AppWindow);
-            }
-        }
-
-        private void AppTitleBar_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (AppWindowTitleBar.IsCustomizationSupported()
-                && m_AppWindow.TitleBar.ExtendsContentIntoTitleBar)
-            {
-                // Update drag region if the size of the title bar changes.
                 SetDragRegionForCustomTitleBar(m_AppWindow);
             }
         }
@@ -167,45 +160,6 @@ namespace WAS_CS
                         // Use the default system title bar.
                         sender.TitleBar.ResetToDefault();
                         break;
-                }
-            }
-        }
-
-        private void SwitchPresenter(object sender, RoutedEventArgs e)
-        {
-            if (m_AppWindow != null)
-            {
-                AppWindowPresenterKind newPresenterKind;
-                switch ((sender as Button).Name)
-                {
-                    case "CompactoverlaytBtn":
-                        newPresenterKind = AppWindowPresenterKind.CompactOverlay;
-                        break;
-
-                    case "FullscreenBtn":
-                        newPresenterKind = AppWindowPresenterKind.FullScreen;
-                        break;
-
-                    case "OverlappedBtn":
-                        newPresenterKind = AppWindowPresenterKind.Overlapped;
-                        break;
-
-                    default:
-                        newPresenterKind = AppWindowPresenterKind.Default;
-                        break;
-                }
-
-                // If the same presenter button was pressed as the
-                // mode we're in, toggle the window back to Default.
-                if (newPresenterKind == m_AppWindow.Presenter.Kind)
-                {
-                    m_AppWindow.SetPresenter(AppWindowPresenterKind.Default);
-                }
-                else
-                {
-                    // Else request a presenter of the selected kind
-                    // to be created and applied to the window.
-                    m_AppWindow.SetPresenter(newPresenterKind);
                 }
             }
         }

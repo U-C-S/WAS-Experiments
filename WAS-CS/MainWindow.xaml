@@ -3,8 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:WASDK_ExtendedTitleBar"
+    xmlns:local="using:WAS_CS"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    ExtendsContentIntoTitleBar="True"
     mc:Ignorable="d">
 
     <Grid>
@@ -22,13 +23,6 @@
                 <ColumnDefinition x:Name="RightDragColumn" Width="*" />
                 <ColumnDefinition x:Name="RightPaddingColumn" Width="0" />
             </Grid.ColumnDefinitions>
-            <Image
-                x:Name="TitleBarIcon"
-                Grid.Column="1"
-                Width="16"
-                Height="16"
-                Margin="8,0,0,0"
-                Source="/Images/WindowIcon.png" />
             <TextBlock
                 x:Name="TitleTextBlock"
                 Grid.Column="2"
@@ -36,42 +30,6 @@
                 VerticalAlignment="Center"
                 Style="{StaticResource CaptionTextBlockStyle}"
                 Text="App title" />
-            <AutoSuggestBox
-                Grid.Column="4"
-                Width="260"
-                Margin="4,0"
-                VerticalAlignment="Center"
-                PlaceholderText="Search"
-                QueryIcon="Find" />
         </Grid>
-
-        <NavigationView
-            Grid.Row="1"
-            IsBackButtonVisible="Collapsed"
-            IsSettingsVisible="False">
-            <StackPanel>
-                <TextBlock
-                    Margin="32,0,0,0"
-                    Style="{ThemeResource TitleTextBlockStyle}"
-                    Text="Content" />
-                <StackPanel Grid.Row="1" VerticalAlignment="Center">
-                    <Button
-                        x:Name="CompactoverlaytBtn"
-                        Margin="4"
-                        Click="SwitchPresenter"
-                        Content="Enter CompactOverlay" />
-                    <Button
-                        x:Name="FullscreenBtn"
-                        Margin="4"
-                        Click="SwitchPresenter"
-                        Content="Enter FullScreen" />
-                    <Button
-                        x:Name="OverlappedBtn"
-                        Margin="4"
-                        Click="SwitchPresenter"
-                        Content="Revert to default (Overlapped)" />
-                </StackPanel>
-            </StackPanel>
-        </NavigationView>
     </Grid>
 </Window>
