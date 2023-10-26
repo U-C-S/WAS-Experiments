@@ -15,6 +15,7 @@ namespace winrt::Hurl_App::implementation
         void MyProperty(int32_t value);
 
         void myButton_Click(Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
+        winrt::AppWindow GetAppWindowFromCurrent();
     };
 }
 
