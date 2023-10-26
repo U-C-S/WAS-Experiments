@@ -19,16 +19,7 @@ namespace winrt::Hurl_App::implementation
 
         Microsoft::UI::Windowing::AppWindow x = GetAppWindowFromCurrent();
         x.Title(L"Hurlxxxxxxxxxxxxxxxx");
-    }
-
-    int32_t MainWindow::MyProperty()
-    {
-        throw hresult_not_implemented();
-    }
-
-    void MainWindow::MyProperty(int32_t /* value */)
-    {
-        throw hresult_not_implemented();
+        x.Resize(winrt::Windows::Graphics::SizeInt32{ 1800, 600 });
     }
 
     void MainWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
